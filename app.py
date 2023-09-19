@@ -10,16 +10,14 @@ app = Flask(__name__)
 def index():
     return "Welcome to the Calculator App"
 
-def add(num1, num2):
-    num1+num2 
-    
+def add1(num1, num2):
+    return num1 + num2
+
+
 # Define routes for your calculator functions
-@app.route('/add', methods=['POST'])
-def add():
-    data = request.get_json()
-    num1 = data['num1']
-    num2 = data['num2']
-    result = add(num1, num2)
+@app.route('/add/<int:num1>/<int:num2>', methods=['GET'])
+def add(num1, num2):
+    result = add1(num1, num2)
     return jsonify({"result": result})
 
 # @app.route('/subtract', methods=['POST'])
@@ -33,4 +31,5 @@ def add():
 # Add more routes for other calculator functions as needed
 
 if __name__ == '__main__':
-    app.run(debug=True)
+
+    app.run(debug=True, port=8080)
